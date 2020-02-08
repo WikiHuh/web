@@ -18,49 +18,45 @@ locs = soup.find_all('loc')
 for link in locs:
     urls.append(link.string)
 
-# print("LENGTH: " + str(len(locs)))
+# out = open('img_data.json', 'a')
+# out.write("[")
 
-# head_urls = urls[0:5000]
+# for i in range(100):
+#     head_urls = urls[(50 * i) : (50 * (i + 1))]
 
-out = open('img_data.json', 'a')
-out.write("[")
+#     for link in head_urls:
+#         # make a request to each of the article urls
+#         request = urllib.request.Request(link)
 
-for i in range(100):
-    head_urls = urls[(50 * i) : (50 * (i + 1))]
+#         # save the contents in this variable
+#         html = urllib.request.urlopen(request).read()
 
-    for link in head_urls:
-        # make a request to each of the article urls
-        request = urllib.request.Request(link)
+#         # create new bs object
+#         html_soup = BeautifulSoup(html, 'html.parser')
 
-        # save the contents in this variable
-        html = urllib.request.urlopen(request).read()
+#         title_element = html_soup.find('h1', class_="firstHeading")
+#         title = title_element.a.string
 
-        # create new bs object
-        html_soup = BeautifulSoup(html, 'html.parser')
+#         # getting all of the list elements (li tags) that contain images
+#         image_containers = html_soup.find_all('li', class_="hasimage")
 
-        title_element = html_soup.find('h1', class_="firstHeading")
-        title = title_element.a.string
+#         # loop through all of the li's containing images
+#         for item in image_containers:
+#             img = item.find('img')
 
-        # getting all of the list elements (li tags) that contain images
-        image_containers = html_soup.find_all('li', class_="hasimage")
-
-        # loop through all of the li's containing images
-        for item in image_containers:
-            img = item.find('img')
-
-            record = {'plays': 0, 'skips': 0}
-            if 'data-src' in img.attrs:
-                record['title'] = title
-                record['img_url'] = img['data-src']
-                json.dump(record, out)
-                out.write(",")
-            elif 'src' in img.attrs:
-                record['title'] = title
-                record['img_url'] = img['src']
-                json.dump(record, out)
-                out.write(",")
+#             record = {'plays': 0, 'skips': 0}
+#             if 'data-src' in img.attrs:
+#                 record['title'] = title
+#                 record['img_url'] = img['data-src']
+#                 json.dump(record, out)
+#                 out.write(",")
+#             elif 'src' in img.attrs:
+#                 record['title'] = title
+#                 record['img_url'] = img['src']
+#                 json.dump(record, out)
+#                 out.write(",")
 
 
-end = time.time()
-out.write("]")
-print(end - start)
+# end = time.time()
+# out.write("]")
+# print(end - start)
